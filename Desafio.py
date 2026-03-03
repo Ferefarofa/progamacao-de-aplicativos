@@ -15,6 +15,8 @@ if valort >= 1000 and CE == "S":
 elif valort > 500 and valort < 1000 and CE == "S":
     desconto = valort * 0.10
     valorfinal = valort - desconto
+else:
+    valorfinal = valort
     
 if Dist <= 50 and valorfinal >= 200:
     frete = 0.00
