@@ -1,6 +1,8 @@
 def eh_par(numero):
     if numero % 2 == 0:
         numero = True
+    elif numero % 2 != 0:
+        numero = False
     if numero == True:
         print("O número é par. ")
     else:
