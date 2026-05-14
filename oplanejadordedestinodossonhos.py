@@ -1,5 +1,6 @@
-open('viagens.txt', 'w').close()
-
+def criar_arquivo():
+    open('viagens.txt', 'w').close()
+    print("Arquivo Recriado! ")
 def adicionar():
     lugar = input("Digite um lugar dos seus sonhos: ")
     with open('viagens.txt', 'a') as viagens:
@@ -11,7 +12,7 @@ def verificar():
         lugares = viagens.readlines()
         i = 0
         for lugar in lugares:
-            print(f"{i} - {lugar.strip()}")
+            print(f"\n{i} - {lugar.strip()}")
             i += 1
 
 def atualizar():
@@ -39,7 +40,7 @@ def deletar():
     print("Aluno removido ")
 opcao = 0
 while opcao != "5":
-    print("\n1-adicionar, \n2-verificar, \n3-editar, \n4-excluir, \n5-sair.")
+    print("\n1-adicionar, \n2-verificar, \n3-editar, \n4-excluir, \n5-sair, \n6-Recriar arquivo.")
     opcao = input("Defina a ação: ")
 
     if opcao == "1": 
@@ -50,4 +51,6 @@ while opcao != "5":
         atualizar()
     elif opcao == "4":
         deletar()
+    elif opcao == "6":
+        criar_arquivo()
 print("Fim da operação! ")
