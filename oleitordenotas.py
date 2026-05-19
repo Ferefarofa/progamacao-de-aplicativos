@@ -1,15 +1,11 @@
 import json
 
-# abre e lê o arquivo JSON
+# Abre e lê o arquivo JSON
 with open("notas.json", "r", encoding="utf-8") as arquivo:
-    dados = json.load(arquivo)
+    notas = json.load(arquivo)
 
-# pega as notas
-matematica = dados["matematica"]
-portugues = dados["portugues"]
+# Soma das notas
+soma = notas["matemática"] + notas["portugues"]
 
-# soma as notas
-soma = matematica + portugues
-
-# mostra o resultado
+# Exibe o resultado
 print("Soma das notas:", soma)
