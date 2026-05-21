@@ -1,7 +1,27 @@
 {
-    "CPF": "Sem dados\n",
-    "nome": "Sem dados\n",
-    "telefone": "Sem dados\n",
-    "turma": "Sem dados\n",
-    "idade": "Sem dados\n"
+    "cpf": [
+        "Sem dados",
+        "11011159988",
+        "81012039900"
+    ],
+    "nome": [
+        "Sem dados",
+        "felipe",
+        "cleide"
+    ],
+    "telefone": [
+        "Sem dados",
+        "991030201",
+        "991030201"
+    ],
+    "turma": [
+        "Sem dados",
+        "2",
+        "2"
+    ],
+    "idade": [
+        "Sem dados",
+        "16",
+        "16"
+    ]
 }
