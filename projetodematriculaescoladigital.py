@@ -10,6 +10,7 @@ def criar_arquivo():
                 "idade": ["Sem dados"]
                 }
         json.dump(dados, matriculas, indent=4, ensure_ascii=False)
+    print("Arquivo criado com sucesso!")
         
 def cadastrar_aluno():
     with open("matriculas.json", 'r') as matriculas:
@@ -35,22 +36,63 @@ def listar():
     with open("matriculas.json", 'r') as matriculas:
         dados = json.load(matriculas)
         idx = dados["cpf"].index(quem)
-    print(f"{dados["cpf"][idx], dados["nome"][idx], dados["telefone"][idx], dados["turma"][idx], dados["idade"][idx]}")
+    print(f"CPF:{dados["cpf"][idx]}\nNome:{dados["nome"][idx]}\nTelefone:{dados["telefone"][idx]}\nTurma:{dados["turma"][idx]}\nIdade:{dados["idade"][idx]}\n")
 
 def atualizar():
-    quem = input("Insira o cpf a ser alterado: ")
+    quem = input("Insira o CPF a ser alterado: ")
     mudar = input("Insira o campo a ser atualizado: ")
-    mudanca = input("Insira o novo dado: ")
     if mudar == "cpf":
         print("Não é possível mudar o cpf de cadastro. ")
+        
     else:
+        mudanca = input("Insira o novo dado: ")
         with open("matriculas.json", 'r') as matriculas:
             dados = json.load(matriculas)
-            dados[quem][mudar] = mudanca
-
+            idx = dados["cpf"].index(quem)
+            dados[mudar][idx] = mudanca
         with open("matriculas.json", 'w') as matriculas:
             json.dump(dados, matriculas, indent=4, ensure_ascii=False)
+        print("Dado atualizado com sucesso! ")
 
 def remover():
-    quem = input("Digite o cpf a ser removido")
+    quem = input("Digite o cpf a ser removido: ")
+    confirmar = input("Confirmação:\n Para remover a matricula do sistema digite DELETAR, caso contrário digite algo diferente: ")
+    if confirmar != "DELETAR":
+        print("Remoção de matrícula cancelada. ")
+    elif confirmar == "DELETAR":
+        with open("matriculas.json", 'r') as matriculas:
+            dados = json.load(matriculas)
+        idx = dados["cpf"].index(quem)
+        del dados["cpf"][idx]
+        del dados["nome"][idx]
+        del dados["telefone"][idx]
+        del dados["turma"][idx]
+        del dados["idade"][idx]
+        with open("matriculas.json", 'w') as matriculas:
+            json.dump(dados, matriculas, indent=4, ensure_ascii=False)
+        print("Matrícula removida com sucesso! Até mais...")
 
+while True:
+    senha = "1e2e3"
+    print("-------------Sistema de matriculas-------------")
+    print("OPÇÕES\n")
+    print("1-Cadastrar aluno\n 2-Dados da matrícula\n 3-Atualizar dados\n 4-Remover matrícula\n 5-Fechar programa\n 6-Criar arquivo\n")
+    opcao = int(input("Digite a ação: "))
+
+    if opcao == 1:
+        cadastrar_aluno()
+    elif opcao == 2:
+        listar()
+    elif opcao == 3:
+        atualizar()
+    elif opcao == 4:
+        remover()
+    elif opcao == 5:
+        break
+    elif opcao == 6:
+        chave = input("Digite a senha: ")
+        if chave == senha:
+            criar_arquivo()
+        else:
+            print("Ação negada.")
+print("Programa encerrado. ")
