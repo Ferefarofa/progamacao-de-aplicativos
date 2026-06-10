@@ -53,4 +53,18 @@ def atualizar():
     else:
         print("Nenhum aluno para atualizar. ")
 
-atualizar()
+
+def remover():
+    if os.path.exists(BANCO_DADOS):
+        with open(BANCO_DADOS, 'r') as alunes:
+            alunos = json.load(alunes)
+        
+        idx = input("Digite o ID do aluno que deseja remover do registro: ")
+        for aluno in alunos:
+            if aluno["id"] == idx:
+                del alunos[aluno]
+            with open(BANCO_DADOS, 'w') as alunes:
+                json.dump(alunos, alunes, indent=4, ensure_ascii=False)
+                print("Aluno removido. ")
+
+remover()
