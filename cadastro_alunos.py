@@ -46,11 +46,14 @@ def buscar():
 def atualizar():
     id_aluno = input("Digite o id do aluno: ")
     novo_nome = input("Digite o novo nome: ")
+    novo_telefone = input("Digite o novo telefone: ")
+    nova_turma = input("Digite a nova turma: ")
+    nova_idade = input("Digite a nova idade: ")
     novo_cpf = input("Digite o novo CPF: ")
 
-    cursor.execute('''
+    cursor.execute(f'''
                    UPDATE alunos
-                   SET nome = ?, cpf = ? WHERE id = ?''', (novo_nome, novo_cpf, id_aluno))
+                    SET nome = {novo_nome}, telefone = {novo_telefone},turma = {nova_turma}, idade = {nova_idade}, cpf = {novo_cpf} WHERE id = {id_aluno}''')
     conexao.commit()
     print("Dados atualizados com sucesso! ")
 
@@ -76,7 +79,7 @@ def remover():
 
 opcao_while = 0
 while True:
-    print("1 - CADASTRAR ALUNO\n2 - LISTAR ALUNOS\n3 - BUSCAR ALUNO\n4 - ATUALIZAR NOME E CPF\n5 - EXCLUIR CADASTRO\n6 - FECHAR PROGRAMA ")
+    print("1 - CADASTRAR ALUNO\n2 - LISTAR ALUNOS\n3 - BUSCAR ALUNO\n4 - ATUALIZAR DADOS\n5 - EXCLUIR CADASTRO\n6 - FECHAR PROGRAMA ")
     opcao_while = int(input("Qual ação deseja realizar: "))
     if opcao_while == 1:
         cadastrar_aluno()
