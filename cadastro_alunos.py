@@ -32,7 +32,7 @@ def listar():
     print("\n")
 
 def buscar():
-    id_aluno = input("Digite o id do aluno: ")
+    id_aluno = int(input("Digite o id do aluno: "))
     cursor.execute("SELECT * FROM alunos WHERE id = ?", (id_aluno))
 
     aluno = cursor.fetchone()
@@ -44,22 +44,22 @@ def buscar():
         print("Aluno não encontrado")
 
 def atualizar():
-    id_aluno = input("Digite o id do aluno: ")
+    id_aluno = int(input("Digite o id do aluno: "))
     novo_nome = input("Digite o novo nome: ")
     novo_telefone = input("Digite o novo telefone: ")
     nova_turma = input("Digite a nova turma: ")
-    nova_idade = input("Digite a nova idade: ")
+    nova_idade = int(input("Digite a nova idade: "))
     novo_cpf = input("Digite o novo CPF: ")
 
     cursor.execute(f'''
                    UPDATE alunos
-                    SET nome = {novo_nome}, telefone = {novo_telefone},turma = {nova_turma}, idade = {nova_idade}, cpf = {novo_cpf} WHERE id = {id_aluno}''')
+                    SET nome = '{novo_nome}', telefone = '{novo_telefone}',turma = '{nova_turma}', idade = {nova_idade}, cpf = '{novo_cpf}' WHERE id = {id_aluno}''')
     conexao.commit()
     print("Dados atualizados com sucesso! ")
 
 
 def remover():
-    id_aluno = input("Digite o ID do aluno que deseja remover: ")
+    id_aluno = int(input("Digite o ID do aluno que deseja remover: "))
     cursor.execute(
         "DELETE FROM alunos WHERE id = ?", (id_aluno,)
     )
@@ -69,13 +69,6 @@ def remover():
         print("Aluno removido com sucesso.")
     else:
         print("Nenhum aluno encontrado com esse ID. ")
-
-
-
-
-
-
-
 
 opcao_while = 0
 while True:
