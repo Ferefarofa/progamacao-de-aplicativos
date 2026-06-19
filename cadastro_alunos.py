@@ -1,5 +1,5 @@
 import sqlite3
-conexao = sqlite3.connect('escola.demosntracao.db')
+conexao = sqlite3.connect('escola.demonstracao.db')
 cursor = conexao.cursor()
 
 def cadastrar_aluno():
@@ -8,6 +8,10 @@ def cadastrar_aluno():
     turma_aluno = input("Digite a Turma: ")
     idade_aluno = int(input("Digite a idade: "))
     cpf_aluno = input("Digite o cpf: ")
+    professor_id = int(input("Digite o ID do professor: "))
+    endereco = input("Digite o endereço do aluno: ")
+    cidade = input("Digite a cidade do aluno: ")
+    estado = input("Digite o estado do aluno: ")
 
     cursor.execute('''
                 CREATE TABLE IF NOT EXISTS alunos(
@@ -16,10 +20,16 @@ def cadastrar_aluno():
                 telefone TEXT, 
                 turma TEXT, 
                 idade INTEGER,
-                cpf TEXT UNIQUE NOT NULL)''')
+                cpf TEXT UNIQUE NOT NULL,
+                professor_id INTEGER,
+                endereco TEXT,
+                cidade TEXT,
+                estado TEXT
+                FOREIGN KEY (professor_id) REFERENCES professores(id))''')
     comando_inserir = f'''
-        INSERT INTO alunos(nome, telefone, turma, idade, cpf)
-        VALUES('{nome_completo_aluno}', '{telefone_aluno}', '{turma_aluno}', '{idade_aluno}', '{cpf_aluno}')'''
+        INSERT INTO alunos(nome, telefone, turma, idade, cpf, professor_id, endereco, cidade, estado)
+        VALUES('{nome_completo_aluno}', '{telefone_aluno}', '{turma_aluno}', '{idade_aluno}', 
+        '{cpf_aluno}', {professor_id}, {endereco}, {cidade}, {estado})'''
 
     cursor.execute(comando_inserir)
     conexao.commit()
@@ -27,8 +37,10 @@ def cadastrar_aluno():
 def listar():
     conexao.commit()
     cursor.execute("SELECT * FROM alunos")
-    for linha in cursor.fetchall():
-        print(linha)
+    alunos = cursor.fetchall()
+    for aluno in alunos:
+        print(f"{aluno[0]}, nome: {aluno[1]}, telefone: {aluno[2]}, turma: {aluno[3]},"/
+            f"idade: {aluno[4]}, CPF: {aluno[5]}, professor: {aluno[6]}, endereço: {aluno[7]}, cidade: {aluno[8]}, estado: {aluno[9]} ")
     print("\n")
 
 def buscar():
@@ -50,10 +62,11 @@ def atualizar():
     nova_turma = input("Digite a nova turma: ")
     nova_idade = int(input("Digite a nova idade: "))
     novo_cpf = input("Digite o novo CPF: ")
+    novo_professor = int(input("Digite o ID do novo professor: "))
 
     cursor.execute(f'''
                    UPDATE alunos
-                    SET nome = '{novo_nome}', telefone = '{novo_telefone}',turma = '{nova_turma}', idade = {nova_idade}, cpf = '{novo_cpf}' WHERE id = {id_aluno}''')
+                    SET nome = '{novo_nome}', telefone = '{novo_telefone}',turma = '{nova_turma}', idade = {nova_idade}, cpf = '{novo_cpf}', professor_id = {novo_professor} WHERE id = {id_aluno}''')
     conexao.commit()
     print("Dados atualizados com sucesso! ")
 

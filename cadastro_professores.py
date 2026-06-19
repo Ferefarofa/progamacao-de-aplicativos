@@ -1,5 +1,5 @@
 import sqlite3
-conexao = sqlite3.connect('escola.demosntracao.db')
+conexao = sqlite3.connect('escola.demonstracao.db')
 cursor = conexao.cursor()
 
 
