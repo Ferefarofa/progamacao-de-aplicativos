@@ -1,6 +1,9 @@
 import sqlite3
-
+conexao = sqlite3.connect('sistema_escola.db')
+cursor = conexao.cursor()
 def vincular_aluno_turma():
+    conexao = sqlite3.connect('sistema_escola.db')
+    cursor = conexao.cursor()
     nome = input("Nome do aluno: ")
     # Se o usuário digitar "Turma B" em vez do numero do ID, o sistema quebra.
     # O try/except abaixo falhou em capturar esse erro. Qual o problema ?
@@ -14,6 +17,10 @@ def vincular_aluno_turma():
         conexao.commit()
     except ValueError:
         print("Erro no banco de dados!")
+
     finally:
         conexao.close()
+
 vincular_aluno_turma()
+
+#Conexao e cursor nao haviam sido criado dentro da função, alem de que no exept deveria estar especificado o tipo de erro que poderia ser cometido.
