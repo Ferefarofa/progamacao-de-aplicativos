@@ -6,19 +6,21 @@ def criar_tabelas():
 
     # Este bloco quebra ao rodar pela primeira vez em um banco limpo. Por quê?
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS series (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome_serie TEXT,
-            id_escola INTEGER,
-            FOREIGN KEY (id_escola) REFERENCES escolas(id)
-            )
-        ''')
-    cursor.execute('''
         CREATE TABLE IF NOT EXISTS escolas (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_escola INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT
             )
         ''')
+    
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS series (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome_serie TEXT,
+        id_escola INTEGER,
+        FOREIGN KEY (id_escola) REFERENCES escolas(id)
+        )
+    ''')
+
         
     conexao.commit()
     conexao.close()
