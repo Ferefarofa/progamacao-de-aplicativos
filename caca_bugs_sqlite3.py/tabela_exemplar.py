@@ -2,19 +2,19 @@ import sqlite3
 conexao = sqlite3.connect('sistema_escola.db')
 cursor = conexao.cursor()
 
-def cadastrar_aluno():
+def cadastrar_tabela():
 
 
     cursor.execute('''
-                CREATE TABLE IF NOT EXISTS turmas(
+                CREATE TABLE IF NOT EXISTS alunos(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                nome_turma TEXT NOT NULL,
-                FOREIGN KEY (id_serie) REFERENCES series(id),
-                FOREIGN KEY (id_professor) REFERENCES professores(id)
+                nome TEXT NOT NULL,
+                tumra INTEGER NOT NULL
+
                 )''')
 
 
-cadastrar_aluno()
+cadastrar_tabela
     
 conexao.commit()
 
