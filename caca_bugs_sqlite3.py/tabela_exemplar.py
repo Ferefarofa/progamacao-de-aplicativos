@@ -6,15 +6,16 @@ def cadastrar_tabela():
 
 
     cursor.execute('''
-                CREATE TABLE IF NOT EXISTS alunos(
+                CREATE TABLE IF NOT EXISTS series(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                nome TEXT NOT NULL,
-                tumra INTEGER NOT NULL
+                nome_serie TEXT NOT NULL,
+                id_escola INTEGER,
+                FOREIGN KEY (id_escola) REFERENCES escolas(id)
 
                 )''')
 
 
-cadastrar_tabela
+cadastrar_tabela()
     
 conexao.commit()
 

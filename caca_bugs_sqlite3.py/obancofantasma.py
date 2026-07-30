@@ -1,7 +1,7 @@
 import sqlite3
 
 def inicializar_banco():
-    conexao = sqlite.connect('sistema_escola.db')
+    conexao = sqlite3.connect('sistema_escola.db')
     cursor = conexao.cursor()
 
     cursor.execute('''

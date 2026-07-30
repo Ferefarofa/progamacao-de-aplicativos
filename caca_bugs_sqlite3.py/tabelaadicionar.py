@@ -3,7 +3,7 @@ import sqlite3
 def coisar():
     conexao = sqlite3.connect('sistema_escola.db')
     cursor = conexao.cursor()
-    cursor.execute("INSERT INTO alunos (nome, turma) VALUES (?, ?)",(nome_aluno, turma_aluno))
+    cursor.execute("INSERT INTO escolas (escola) VALUES (?)",(nome_aluno,))
     conexao.commit()
 
 
