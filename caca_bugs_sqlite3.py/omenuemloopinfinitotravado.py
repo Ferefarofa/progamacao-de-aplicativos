@@ -10,5 +10,5 @@ def menu():
             print("Saindo do programa.") 
             break
         	# Por que o programa continua rodando e mostrando o menu mesmo digitando 2? 
-            pass 
+
 menu()

@@ -11,4 +11,4 @@ def inserir_escola(nome):
 
 nome = input("Digite o nome da escola: ")
 inserir_escola(nome)
-#é tipo como e a conexao criada fora da fução fechasse tudo porque é usada de forma geral, ja uma conexao close criada dentro da função fecha apenas a conexão abrida dentro dela.
+#é tipo como e a conexao criada fora da fução fechasse tudo porque é usada de forma geral, ja uma conexao close criada dentro da função fecha apenas a conexão aberta dentro dela.
