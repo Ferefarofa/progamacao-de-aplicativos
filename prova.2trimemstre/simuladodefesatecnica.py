@@ -41,17 +41,19 @@ def cadastro():
 
 
         
-        comando_inserir_academia = " INSERT INTO hoteis(nome, cidade) VALUES(?, ?)"
-        comando_inserir_alunos = " INSERT INTO quartos(numero, preco_diaria, id_hotel) VALUES(?, ?, ?)"
+        comando_inserir_hotel = " INSERT INTO hoteis(nome, cidade) VALUES(?, ?)"
+        comando_inserir_quarto = " INSERT INTO quartos(numero, preco_diaria, id_hotel) VALUES(?, ?, ?)"
 
-        cursor.execute(comando_inserir_academia, (nome_unidade, bairro))
-        cursor.execute(comando_inserir_alunos, (nome_aluno, mensalidade, id_academia))
+        cursor.execute(comando_inserir_hotel, (nome, cidade))
+        cursor.execute(comando_inserir_quarto, (numero, preco_diaria, id_hotel))
         conexao.commit()
 
         
     except sqlite3.IntegrityError:
-        print("Erro, id da academia inválido.")
+        print("Erro, id do hotel inválido.")
 
+    except ValueError:
+        print("Não digite letras em campos numéricos e vice-versa")
     finally:
 
         conexao.close()
@@ -64,9 +66,44 @@ def listar():
     conexao = sqlite3.connect('prova.2trimemstre/banco_hotelaria.db')
     cursor = conexao.cursor()
     cursor.execute("PRAGMA foreign_keys = ON")
-    cursor.execute('''SELECT * FROM salas''')
+    cursor.execute('''SELECT * FROM quartos''')
 
-    salas = cursor.fetchall()
+    quartos = cursor.fetchall()
 
-    for sala in salas:
-        print(f"===============================================\n ID Sala: {sala[0]}\n Numero da Sala: {sala[1]}\n Capacidade: {sala[2]}\n ID Cinema: {sala[3]}\n===============================================" )
+    for quarto in quartos:
+        print(f"==================================\n ID Quarto: {quarto[0]}\n Numero do Quarto: {quarto[1]}\n Preço da diária: {quarto[2]}\n ID Hotel: {quarto[3]}\n==================================" )
+
+
+
+def menu():
+    try:
+        opcao = 1
+        while opcao != 3:
+            print("==================================\n 1 - CADASTRAR HOSPEDE\n 2 - LISTAR HOSPEDES\n 3 - SAIR\n==================================")
+            opcao = int(input("Digite sua ação: "))
+            if opcao == 1:
+                cadastro()
+            elif opcao == 2:
+                listar()
+            elif opcao == 3:
+                break
+            elif opcao != 1 or 2 or 3:
+                print("Insira uma opção válida")
+    except ValueError:
+        print("Não digite letras em campos numéricos e vice-versa")
+        pass
+    finally:
+        if opcao != 2:
+            print("Tente novamente")
+            menu()
+        elif opcao == 3:
+            break
+        else:
+            menu()
+
+
+        
+            
+
+menu()
+print("Volte sempre!")
