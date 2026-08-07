@@ -77,7 +77,7 @@ def listar():
 
 def menu():
     try:
-        opcao = 1
+        opcao = ""
         while opcao != 3:
             print("==================================\n 1 - CADASTRAR HOSPEDE\n 2 - LISTAR HOSPEDES\n 3 - SAIR\n==================================")
             opcao = int(input("Digite sua ação: "))
@@ -91,13 +91,12 @@ def menu():
                 print("Insira uma opção válida")
     except ValueError:
         print("Não digite letras em campos numéricos e vice-versa")
-        pass
     finally:
-        if opcao != 2:
+        if opcao != 2 and not 3:
             print("Tente novamente")
             menu()
         elif opcao == 3:
-            break
+            print("Volte Sempre!")
         else:
             menu()
 
@@ -106,4 +105,3 @@ def menu():
             
 
 menu()
-print("Volte sempre!")
