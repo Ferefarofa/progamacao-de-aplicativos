@@ -28,10 +28,6 @@ def cadastrar_rede():
     conexao.commit()
     conexao.close()
 
-
-
-
-
 def cadastrar_loja():
     conexao = sqlite3.connect('prova2trimestrepasta/banco_mercado.db')
     cursor = conexao.cursor()
@@ -76,7 +72,6 @@ def listar_lojas():
     for loja in lojas:
         print(f"=======================\n ID: {loja[0]}\n nome: {loja[1]}\n endereço: {loja[2]}\n ID/Rede vinculada: {loja[3]}\n=======================")
 
-
 def atualizar_rede():
     conexao = sqlite3.connect('prova2trimestrepasta/banco_mercado.db')
     cursor = conexao.cursor()
@@ -112,7 +107,6 @@ def atualizar_loja():
     print("Dados atualizados com sucesso! ")
     conexao.close()
 
-
 def remover_rede():
     try:
         conexao = sqlite3.connect('prova2trimestrepasta/banco_mercado.db')
@@ -126,12 +120,15 @@ def remover_rede():
         )
 
         conexao.commit()
-        print("Rede removida com sucesso")
+        
     except sqlite3.IntegrityError:
         print("A rede deve ser livre de vinculos para ser excluida.")
     finally:
+        if cursor.rowcount > 0 :
+            print("Rede removida com sucesso.")
+        else:
+            print("Nenhuma rede encontrada com esse ID. ")
         conexao.close()
-
 
 def remover_loja():
     conexao = sqlite3.connect('prova2trimestrepasta/banco_mercado.db')
@@ -145,7 +142,10 @@ def remover_loja():
     )
 
     conexao.commit()
-    print("Loja removida com sucesso")
+    if cursor.rowcount > 0 :
+        print("Loja removida com sucesso.")
+    else:
+        print("Nenhuma loja encontrada com esse ID. ")
     conexao.close()
 
 def menu_redes():
@@ -177,7 +177,6 @@ def menu_redes():
             print("Fechando menu das redes")
         else:
             menu_redes()
-
 
 def menu_lojas():
     try:
@@ -211,7 +210,6 @@ def menu_lojas():
         else:
             menu_lojas()
 
-
 def menu_principal():
     try:
         acao = ""
@@ -241,6 +239,6 @@ def menu_principal():
             menu_principal()
 
 
-menu_principal()
 
-        
+
+menu_principal()
