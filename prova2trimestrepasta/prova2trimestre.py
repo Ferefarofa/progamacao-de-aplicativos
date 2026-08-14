@@ -127,7 +127,7 @@ def remover_rede():
         if cursor.rowcount > 0 :
             print("Rede removida com sucesso.")
         else:
-            print("Nenhuma rede encontrada com esse ID. ")
+            print("O ID selecionado está indísponivel para remoção ou não existe. ")
         conexao.close()
 
 def remover_loja():
@@ -165,7 +165,7 @@ def menu_redes():
                 remover_rede()
             elif opcao == 5:
                 break
-            elif opcao != 1 or 2 or 3 or 4 or 5:
+            elif opcao not in (1, 2, 3, 4, 5):
                 print("Insira uma opção válida")
     except ValueError:
         print("Não digite letras em campos numéricos e vice-versa")
@@ -195,7 +195,7 @@ def menu_lojas():
                 remover_loja()
             elif opcao == 5:
                 break
-            elif opcao != 1 or 2 or 3 or 4 or 5:
+            elif opcao not in (1, 2, 3, 4, 5):
                 print("Insira uma opção válida")
     except ValueError:
         print("Não digite letras em campos numéricos e vice-versa")
@@ -223,7 +223,7 @@ def menu_principal():
                 menu_lojas()
             elif acao == 3:
                 break
-            elif acao != (1 or 2 or 3):
+            elif acao not in (1, 2, 3):
                 print("Insira uma opção válida")
         print("Volte sempre!")
         
