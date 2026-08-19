@@ -151,7 +151,7 @@ def remover_loja():
 def menu_redes():
     try:
         
-        opcao = ""
+        opcao = 0
         while opcao != 5:
             print("==================================\n 1 - CADASTRAR REDE\n 2 - LISTAR REDES\n 3 - ATUALIZAR REDES\n 4 - REMOVER REDES\n 5 - SAIR\n==================================")
             opcao = int(input("Digite sua ação: "))
@@ -181,7 +181,7 @@ def menu_redes():
 def menu_lojas():
     try:
         
-        opcao = ""
+        opcao = 0
         while opcao != 5:
             print("==================================\n 1 - CADASTRAR LOJA\n 2 - LISTAR LOJAS\n 3 - ATUALIZAR LOJAS\n 4 - REMOVER LOJAS\n 5 - SAIR\n==================================")
             opcao = int(input("Digite sua ação: "))
@@ -212,7 +212,7 @@ def menu_lojas():
 
 def menu_principal():
     try:
-        acao = ""
+        acao = 0
         while True:
             print(" SISTEMA DE MERCADOS PARANAVAÍ")
             print("==================================\n 1 - MENU DE REDES\n 2 - MENU DE LOJAS\n 3 - ENCERRAR SISTEMA\n==================================\n")
