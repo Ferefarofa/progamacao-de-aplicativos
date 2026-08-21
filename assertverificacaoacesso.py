@@ -4,12 +4,9 @@ def pode_entrar(idade, acompanhado):
     return False
 
 
-pode_entrar(24, False)
+pode_entrar(12, False)
 assert pode_entrar(10, False) == False
 assert pode_entrar(10, True) == True
 assert pode_entrar(18, False) == True
 assert pode_entrar(17, True) == True
 assert pode_entrar(17, False) == False
-
-
-
