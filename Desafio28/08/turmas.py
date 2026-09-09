@@ -1,21 +1,33 @@
 import sqlite3
+conexao = sqlite3.connect('Desafio28/08/gestao_escolar.db')
+cursor = conexao.cursor()
+cursor.execute("PRAGMA foreign_keys = ON")
 
 
 def cadastrar_turma():
-    conexao = sqlite3.connect('Desafio28/08/gestao_escolar.db')
-    cursor = conexao.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON")
+    erro = False
+    try:
+        conexao = sqlite3.connect('Desafio28/08/gestao_escolar.db')
+        cursor = conexao.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON")
 
-    nome = input("Digite o nome da turma: ")
-    id_escola = input("Digite o ID da escola vinculada: ")
-    
-    comando_inserir = f'''
-        INSERT INTO turmas(nome_turma, id_escola)
-        VALUES('{nome}', {id_escola})'''
+        nome = input("Digite o nome da turma: ")
+        id_escola = int(input("Digite o ID da escola vinculada: "))
+        assert nome != "", "O nome não deve ser nulo."
+        assert id_escola > 0, "O ID de vinculo deve ser maior que zero."
+        comando_inserir = f'''
+            INSERT INTO turmas(nome_turma, id_escola)
+            VALUES('{nome}', {id_escola})'''
 
-    cursor.execute(comando_inserir)
-    conexao.commit()
-    conexao.close()
+        cursor.execute(comando_inserir)
+        conexao.commit()
+    except sqlite3.IntegrityError:
+        erro = True
+        print("O ID de vinculo não existe.")
+    finally:
+        if erro:
+            print("Tente novamente")
+        conexao.close()
 
 def listar_turmas():
     cursor.execute("SELECT * FROM turmas")
@@ -25,26 +37,37 @@ def listar_turmas():
 
 
 def atualizar_turma():
-    conexao = sqlite3.connect('Desafio28/08/gestao_escolar.db')
-    cursor = conexao.cursor()
-    cursor.execute("PRAGMA foreign_keys = ON")
-
-    id_turma = int(input("Digite o id da turma: "))
-    novo_nome = input("Digite o novo nome da turma: ")
-    novo_vinculo = int(input("Digite a nova escola vinculada: "))
-    
-
-    cursor.execute(f'''
-                   UPDATE turmas
-                    SET nome_turma = '{novo_nome}', id_escola = {novo_vinculo} WHERE id = {id_turma}''')
-    conexao.commit()
-    print("Dados atualizados com sucesso! ")
-    conexao.close()
-
-
-def remover_escola():
+    erro = False
     try:
-        conexao = sqlite3.connect('prova2trimestrepasta/banco_mercado.db')
+        conexao = sqlite3.connect('Desafio28/08/gestao_escolar.db')
+        cursor = conexao.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON")
+
+        id_turma = int(input("Digite o id da turma: "))
+        novo_nome = input("Digite o novo nome da turma: ")
+        novo_vinculo = int(input("Digite a nova escola vinculada: "))
+        
+
+        cursor.execute(f'''
+                    UPDATE turmas
+                        SET nome_turma = '{novo_nome}', id_escola = {novo_vinculo} WHERE id = {id_turma}''')
+        conexao.commit()
+        assert cursor.rowcount == 1, "A atualização falhou, verifique se o ID inserido existe."
+    except AssertionError or sqlite3Error:
+        erro = True
+        print("A atualização falhou.")
+    finally:
+        if erro:
+            print("Tente novamente.")
+        else:
+            print("Dados atualizados com sucesso! ")
+        conexao.close()
+
+
+def remover_turma():
+    erro = False
+    try:
+        conexao = sqlite3.connect('Desafio28/08/gestao_escolar.db')
         cursor = conexao.cursor()
         cursor.execute("PRAGMA foreign_keys = ON")
 
@@ -55,12 +78,14 @@ def remover_escola():
         )
 
         conexao.commit()
-        
-    except sqlite3.IntegrityError:
-        print("A turma deve ser livre de vinculos para ser excluida.")
+        assert cursor.rowcount == 1, "A remoção falhou."
+    except AssertionError:
+        erro = True
+        print("A turma com o ID inserido não existe.")
+
     finally:
-        if cursor.rowcount > 0 :
-            print("Turma removida com sucesso.")
+        if erro:
+            print("Tente novamente.")
         else:
-            print("O ID selecionado está indísponivel para remoção ou não existe. ")
+            print("Turma removida com sucesso.")
         conexao.close()
