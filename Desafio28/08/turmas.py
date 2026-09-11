@@ -13,20 +13,34 @@ def cadastrar_turma():
 
         nome = input("Digite o nome da turma: ")
         id_escola = int(input("Digite o ID da escola vinculada: "))
+
         assert nome != "", "O nome não deve ser nulo."
         assert id_escola > 0, "O ID de vinculo deve ser maior que zero."
+
         comando_inserir = f'''
             INSERT INTO turmas(nome_turma, id_escola)
             VALUES('{nome}', {id_escola})'''
 
         cursor.execute(comando_inserir)
         conexao.commit()
+        assert cursor.rowcount == 1, "O cadastro não foi feito."
+
+
     except sqlite3.IntegrityError:
         erro = True
         print("O ID de vinculo não existe.")
+
+    except AssertionError as ala:
+        erro = True
+        print("Erro de cadastro, ", ala)
+
     finally:
         if erro:
+
             print("Tente novamente")
+        else:
+            
+            print("Cadastro feito com sucesso.")
         conexao.close()
 
 def listar_turmas():
@@ -55,7 +69,7 @@ def atualizar_turma():
         assert cursor.rowcount == 1, "A atualização falhou, verifique se o ID inserido existe."
     except AssertionError or sqlite3Error:
         erro = True
-        print("A atualização falhou.")
+        print("A atualização falhou, verifique se o ID inserido existe.")
     finally:
         if erro:
             print("Tente novamente.")
@@ -73,19 +87,24 @@ def remover_turma():
 
 
         id_turma = int(input("Digite o ID da turma que deseja remover: "))
+
+        assert id_turma > 0, "O ID deve ser válido."
         cursor.execute(
             f"DELETE FROM turmas WHERE id = {id_turma}"
         )
 
         conexao.commit()
-        assert cursor.rowcount == 1, "A remoção falhou."
-    except AssertionError:
+        assert cursor.rowcount == 1, "A turma com o ID inserido não existe."
+    except AssertionError as ala:
+
         erro = True
-        print("A turma com o ID inserido não existe.")
+        print("Erro de remoção, ", ala)
 
     finally:
         if erro:
+
             print("Tente novamente.")
         else:
+
             print("Turma removida com sucesso.")
         conexao.close()
