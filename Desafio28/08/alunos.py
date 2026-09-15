@@ -45,10 +45,11 @@ def cadastrar_aluno():
         conexao.close()
 
 def listar_alunos():
-    cursor.execute("SELECT * FROM alunos")
+    cursor.execute('''SELECT * FROM alunos ORDER BY nome_aluno ASC''')
+    
     alunos = cursor.fetchall()
     for aluno in alunos:
-        print(f"=======================\n ID: {aluno[0]}\n Nome: {aluno[1]}\n Idade: {aluno[2]}\n ID da turma vinculada: {aluno[3]}\n=======================")
+        print(f"==================================\n ID: {aluno[0]}\n Nome: {aluno[1]}\n Idade: {aluno[2]}\n ID da turma vinculada: {aluno[3]}\n==================================")
 
 
 def atualizar_aluno():
